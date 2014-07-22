@@ -115,7 +115,7 @@ public class TemporaryFolder extends ExternalResource {
         }
     }
 
-	private boolean isLastElementInArray(int index, String[] array) {
+    private boolean isLastElementInArray(int index, String[] array) {
         return index == array.length - 1;
     }
 
