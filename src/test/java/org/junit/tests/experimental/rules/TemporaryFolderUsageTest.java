@@ -174,7 +174,7 @@ public class TemporaryFolderUsageTest {
         thrown.expect(IOException.class);
         thrown.expectMessage("It's not possible to use the OS separator to create folder hierarchies like " +
                                      "\'MyParentFolder\'" + File.separator + "\'MyFolder\'. " +
-                                     "Please use newFolder('MyParentFolder','MyFolder') instead");
+                                     "Please use newFolder('MyParentFolder', 'MyFolder') instead");
         tempFolder.newFolder("MyParentFolder" + File.separator + "MyFolder");
 
     }
