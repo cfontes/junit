@@ -10,15 +10,15 @@ import org.junit.runner.manipulation.Filter;
 /**
  * {@link org.junit.runner.FilterFactory} to include categories.
  *
- * <p>The {@link Filter} that is created will filter out tests that are categorized with any of the
+ * The {@link Filter} that is created will filter out tests that are categorized with any of the
  * given categories.
  *
- * <p>Usage from command line:
+ * Usage from command line:
  * <code>
  *     --filter=org.junit.experimental.categories.IncludeCategories=pkg.of.Cat1,pkg.of.Cat2
  * </code>
  *
- * <p>Usage from API:
+ * Usage from API:
  * <code>
  *     new IncludeCategories().createFilter(Cat1.class, Cat2.class);
  * </code>

@@ -92,7 +92,7 @@ public class TemporaryFolder extends ExternalResource {
         File file = getRoot();
         for (int i = 0; i < folderNames.length; i++) {
             String folderName = folderNames[i];
-	        validateIOSeparator(folderName);
+			validateIOSeparator(folderName);
 	        file = new File(file, folderName);
             if (!file.mkdir() && isLastElementInArray(i, folderNames)) {
                 throw new IOException(
@@ -103,16 +103,15 @@ public class TemporaryFolder extends ExternalResource {
     }
 
 	/**
-	 * <p>Validates if a OS separator was used in the attempt to create a folder structure.</p>
+	 * Validates if a OS separator was used in the attempt to create a folder structure.
 	 *
 	 * @param folderName String passed as the temp folder name
-	 * @throws IOException in case a separator was used to warn user that this behaviour is not supported
 	 */
 	private void validateIOSeparator(String folderName) throws IOException {
 		if(folderName.contains(File.separator)) {
 			throw new IOException("It's not possible to use the OS separator to create folder hierarchies like " +
-					                      "\'MyParentFolder\'"+File.separator+"\'MyFolder\'. " +
-					                      "Please use newFolder('MyParentFolder','MyFolder') instead");
+					                      "\'MyParentFolder\'" + File.separator + "\'MyFolder\'. " +
+					                      "Please use newFolder('MyParentFolder', 'MyFolder') instead");
 		}
 	}
 
