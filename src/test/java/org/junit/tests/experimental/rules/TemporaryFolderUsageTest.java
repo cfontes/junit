@@ -167,17 +167,17 @@ public class TemporaryFolderUsageTest {
         assertThat(tempDir, is(folder.getRoot().getParentFile()));
     }
 
-	@Test
-	public void fileSeparatorShouldThrowExceptionWhenUsedAsPartOfFolderNameParameter() throws IOException {
-		tempFolder.create();
+    @Test
+    public void fileSeparatorShouldThrowExceptionWhenUsedAsPartOfFolderNameParameter() throws IOException {
+        tempFolder.create();
 
-		thrown.expect(IOException.class);
-		thrown.expectMessage("It's not possible to use the OS separator to create folder hierarchies like " +
-				                     "\'MyParentFolder\'"+File.separator+"\'MyFolder\'. " +
-				                     "Please use newFolder('MyParentFolder','MyFolder') instead");
-		tempFolder.newFolder("MyParentFolder" + File.separator + "MyFolder");
+        thrown.expect(IOException.class);
+        thrown.expectMessage("It's not possible to use the OS separator to create folder hierarchies like " +
+                                     "\'MyParentFolder\'" + File.separator + "\'MyFolder\'. " +
+                                     "Please use newFolder('MyParentFolder','MyFolder') instead");
+        tempFolder.newFolder("MyParentFolder" + File.separator + "MyFolder");
 
-	}
+    }
 
     private File createTemporaryFolder() throws IOException {
         File tempDir = File.createTempFile("junit", "tempFolder");
