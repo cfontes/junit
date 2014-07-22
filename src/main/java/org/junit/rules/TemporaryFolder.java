@@ -80,7 +80,7 @@ public class TemporaryFolder extends ExternalResource {
      * Returns a new fresh folder with the given name under the temporary
      * folder.
      */
-    public File newFolder(String folder) throws IOException, IllegalArgumentException {
+    public File newFolder(String folder) throws IOException {
         return newFolder(new String[]{folder});
     }
 
