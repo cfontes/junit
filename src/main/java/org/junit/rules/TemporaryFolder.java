@@ -80,7 +80,7 @@ public class TemporaryFolder extends ExternalResource {
      * Returns a new fresh folder with the given name under the temporary
      * folder.
      */
-    public File newFolder(String folder) throws IOException {
+    public File newFolder(String folder) throws IOException, IllegalArgumentException {
         return newFolder(new String[]{folder});
     }
 
@@ -92,7 +92,8 @@ public class TemporaryFolder extends ExternalResource {
         File file = getRoot();
         for (int i = 0; i < folderNames.length; i++) {
             String folderName = folderNames[i];
-            file = new File(file, folderName);
+	        validateIOSeparator(folderName);
+	        file = new File(file, folderName);
             if (!file.mkdir() && isLastElementInArray(i, folderNames)) {
                 throw new IOException(
                         "a folder with the name \'" + folderName + "\' already exists");
@@ -101,7 +102,21 @@ public class TemporaryFolder extends ExternalResource {
         return file;
     }
 
-    private boolean isLastElementInArray(int index, String[] array) {
+	/**
+	 * <p>Validates if a OS separator was used in the attempt to create a folder structure.</p>
+	 *
+	 * @param folderName String passed as the temp folder name
+	 * @throws IOException in case a separator was used to warn user that this behaviour is not supported
+	 */
+	private void validateIOSeparator(String folderName) throws IOException {
+		if(folderName.contains(File.separator)) {
+			throw new IOException("It's not possible to use the OS separator to create folder hierarchies like " +
+					                      "\'MyParentFolder\'"+File.separator+"\'MyFolder\'. " +
+					                      "Please use newFolder('MyParentFolder','MyFolder') instead");
+		}
+	}
+
+	private boolean isLastElementInArray(int index, String[] array) {
         return index == array.length - 1;
     }
 
