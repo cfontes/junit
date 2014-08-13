@@ -92,13 +92,32 @@ public class TemporaryFolder extends ExternalResource {
         File file = getRoot();
         for (int i = 0; i < folderNames.length; i++) {
             String folderName = folderNames[i];
+<<<<<<< HEAD
             validateIOSeparator(folderName);
+=======
+            validateFolderName(folderName);
+>>>>>>> upstream/master
             file = new File(file, folderName);
             if (!file.mkdir() && isLastElementInArray(i, folderNames)) {
                 throw new IOException("a folder with the name \'" + folderName + "\' already exists");
             }
         }
         return file;
+    }
+    
+    /**
+     * Validates if multiple path components were used while creating a folder.
+     * 
+     * @param folderName
+     *            Name of the folder being created
+     */
+    private void validateFolderName(String folderName) throws IOException {
+        File tempFile = new File(folderName);
+        if (tempFile.getParent() != null) {
+            String errorMsg = "Folder name cannot consist of multiple path components separated by a file separator."
+                    + " Please use newFolder('MyParentFolder','MyFolder') to create hierarchies of folders";
+            throw new IOException(errorMsg);
+        }
     }
 
     /**
