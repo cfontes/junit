@@ -168,16 +168,36 @@ public class TemporaryFolderUsageTest {
     }
 
     @Test
-    public void fileSeparatorShouldThrowExceptionWhenUsedAsPartOfFolderNameParameter() throws IOException {
+    public void ShouldThrowExceptionWhenSeparatorIsUsedAsPartOfFolderNameParameter() throws IOException {
         tempFolder.create();
 
         thrown.expect(IOException.class);
-        String errorMsg = "It's not possible to use the OS separator to create folder " +
-                                  "hierarchies like 'MyParentFolder'%s'MyFolder'. Please use newFolder('MyParentFolder', "+
-                                  "'MyFolder') instead";
+        String errorMsg = "It's not possible to use a separator to create folder " +
+                "hierarchies like 'MyParentFolder'%s'MyFolder'. Please use newFolder('MyParentFolder', "+
+                        "'MyFolder') instead";
         thrown.expectMessage(String.format(errorMsg,File.separator));
         tempFolder.newFolder("MyParentFolder" + File.separator + "MyFolder");
 
+    }
+
+
+    @Test
+    public void ShouldThrowExceptionSlashIsUsedAsPartOfFolderNameParameter() throws IOException {
+        tempFolder.create();
+
+        thrown.expect(IOException.class);
+        String errorMsg = "It's not possible to use a separator to create folder " +
+                "hierarchies like 'MyParentFolder'%s'MyFolder'. Please use newFolder('MyParentFolder', "+
+                        "'MyFolder') instead";
+        thrown.expectMessage(String.format(errorMsg,File.separator));
+        tempFolder.newFolder("MyParentFolder/MyFolder");
+
+    }
+
+    @Test
+    public void ShouldNotThrowExceptionFolderNameParameterDoesNotUseSeparator() throws IOException {
+        tempFolder.create();
+        tempFolder.newFolder("Folder");
     }
 
     private File createTemporaryFolder() throws IOException {

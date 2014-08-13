@@ -108,11 +108,13 @@ public class TemporaryFolder extends ExternalResource {
      *         String passed as the temp folder name
      */
     private void validateIOSeparator(String folderName) throws IOException {
-        if (folderName.contains(File.separator)) {
-            String errorMsg = "It's not possible to use the OS separator to create folder " +
-                    "hierarchies like 'MyParentFolder'%s'MyFolder'. Please use newFolder('MyParentFolder', "+
-                            "'MyFolder') instead";
-            throw new IOException(String.format(errorMsg,File.separator));
+        File file = new File(folderName);
+        if (file.getParent() != null){
+//        if (folderName.contains(File.separator) || folderName.contains("/")) {
+            String errorMsg = "It's not possible to use a separator to create folder " +
+                    "hierarchies like 'MyParentFolder'%s'MyFolder'. Please use newFolder" +
+                            "('MyParentFolder', 'MyFolder') instead";
+            throw new IOException(String.format(errorMsg, File.separator));
         }
     }
 
